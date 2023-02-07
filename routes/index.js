@@ -1,15 +1,17 @@
+const express =require('express');
 const productsRouter =require ('./productsRouter');
 const usersRouter = require ('./usersRouter');
-//const categories = require ('./categories');
-const port =3000;
+const categoriesRouter = require ('./categoriesRouter');
+
 
 function routerApi(app){
-  app.use('/products',productsRouter);
-  app.use('/users',usersRouter);
+  const router =express.Router();
 
-  app.listen(port,()=>{
-    console.log(`Server is running on port ${port}`);
-  });
+  router.use('/products',productsRouter);
+  router.use('/users',usersRouter);
+  router.use('./categories',categoriesRouter);
+
+  app.use('/api/v1',router);
 }
 
 module.exports = routerApi;
